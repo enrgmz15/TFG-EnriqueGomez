@@ -1,19 +1,6 @@
-const mysql = require('mysql');
+import express from 'express';
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'alumne',
-  password: 'alumne',
-  database: 'NBA'
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Error de conexión: ' + err.stack);
-    return;
-  }
-  console.log('Conexión exitosa a la base de datos MySQL.');
-});
+import equiposController from './controllers/equiposController.js';
 
 import bodyParser from 'body-parser';
 const { urlencoded, json } = bodyParser;
@@ -29,3 +16,11 @@ app.listen(8080, () => {
 function DefaultController(req,res){
     res.send("Error 404");
 }
+
+const router = express.Router();
+
+router.get('/equipos',equiposController.NombresEquipos);
+
+app.use("/api", router);
+
+app.use('*', DefaultController);
