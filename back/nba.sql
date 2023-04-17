@@ -1,4 +1,3 @@
-CREATE DATABASE NBA;
 CREATE TABLE equipos (
   Nombre varchar(20) NOT NULL,
   Ciudad varchar(20) DEFAULT NULL,

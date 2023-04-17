@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-await mongoose.connect('mongodb://127.0.0.1:27017/NBA');
+mongoose.connect('mongodb://root:root@localhost:27017/NBA?authSource=admin', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on("error", function(e) { console.error(e); });
 
 let Equipos = new mongoose.Schema({
@@ -9,11 +9,10 @@ let Equipos = new mongoose.Schema({
     Conferencia : String,
     Division : String
 });
-
-let eqps = mongoose.model('equipos', Equipos);
+let eqps = mongoose.model('equipos', Equipos);  
 
 export async function getEquipos(){
-    let res= await eqps.find({ Nombre: 1, _id:0});
+    let res= await eqps.find().select('Nombre');
     if (res) {
         let llista = [];
         for (let equipo of res) {

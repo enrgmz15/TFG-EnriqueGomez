@@ -1,8 +1,10 @@
 import express from 'express';
 
 import equiposController from './controllers/equiposController.js';
+import jugadorsController from './controllers/jugadorsController.js';
 
 import bodyParser from 'body-parser';
+import JugadorsController from './controllers/jugadorsController.js';
 const { urlencoded, json } = bodyParser;
 
 const app = express();
@@ -20,6 +22,8 @@ function DefaultController(req,res){
 const router = express.Router();
 
 router.get('/equipos',equiposController.NombresEquipos);
+
+router.get('/:equipo?/jugadores',jugadorsController.ObtenerJugadoresPorEquipo)
 
 app.use("/api", router);
 
