@@ -12,7 +12,6 @@ export default class JugadorsController {
         typeof(req.query.equipo) === typeof(undefined)) {
 
             let llista =  await getJugadores();
-            console.log(llista);
             response = { "status": "ok", "data": llista };
             status = 200;
         }else{

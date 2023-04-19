@@ -1,7 +1,7 @@
-import { getEquipos } from '../models/equipos.js';
+import { getEquipos, getEquiposPorConferencia } from '../models/equipos.js';
 
 
-export default class usuariosController{
+export default class EquiposController{
     static async NombresEquipos(req,res){
         let lista = []
         let response;
@@ -27,4 +27,29 @@ export default class usuariosController{
         res.status = status;
         res.send(response);
     }
+    static async ObtenerEquiposPorConferencia(req,res){
+        let lista = []
+        let response;
+        let type = "application/json";
+        let status;
+
+        if(typeof(req.params.conferencia) === typeof(undefined) &&
+        typeof(req.query.conferencia) === typeof(undefined)) {
+
+            let llista =  await getEquipos();
+            response = { "status": "ok", "data": llista };
+            status = 200;
+        }else{
+            let conferencia;
+            if(typeof(req.params.conferencia) !== typeof(undefined)) conferencia = req.params.conferencia;
+            else conferencia = req.query.conferencia;
+
+            response = await getEquiposPorConferencia(conferencia);
+            if (!response) response = { "status": "error", "msg": "Not Found" };
+        }
+
+        res.type = type;
+        res.status = status;
+        res.send(response);
+}
 }
