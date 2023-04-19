@@ -5,6 +5,7 @@ import jugadorsController from './controllers/jugadorsController.js';
 
 import bodyParser from 'body-parser';
 import JugadorsController from './controllers/jugadorsController.js';
+import estadisticasController from './controllers/estadisticasController.js';
 const { urlencoded, json } = bodyParser;
 
 const app = express();
@@ -23,7 +24,12 @@ const router = express.Router();
 
 router.get('/equipos',equiposController.NombresEquipos);
 
-router.get('/:equipo?/jugadores',jugadorsController.ObtenerJugadoresPorEquipo)
+router.get('/:equipo?/jugadores',jugadorsController.ObtenerJugadoresPorEquipo);
+
+router.get('/:conferencia?/equipos',equiposController.ObtenerEquiposPorConferencia);
+
+router.get('/anotadores',estadisticasController.ObtenerPPP);
+
 
 app.use("/api", router);
 
