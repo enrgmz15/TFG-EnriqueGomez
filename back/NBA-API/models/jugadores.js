@@ -11,6 +11,8 @@ let Jugadores = new mongoose.Schema({
     Peso : Number,
     Nombre_equipo : String
 });
+export default mongoose.model('Jugador', Jugadores);
+
 let players = mongoose.model('jugadores', Jugadores);
 module.exports= players;
 
