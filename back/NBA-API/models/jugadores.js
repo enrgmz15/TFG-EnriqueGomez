@@ -12,6 +12,7 @@ let Jugadores = new mongoose.Schema({
     Nombre_equipo : String
 });
 let players = mongoose.model('jugadores', Jugadores);
+module.exports= players;
 
 export async function getJugadores(){
     let res = await players.find().select('Nombre');
@@ -30,7 +31,7 @@ export async function getJugadores(){
 
 
 export async function getJugadoresPorEquipo(equipo){
-    let res= await players.find({'Nombre_equipo': equipo}).select('Nombre Posicion');
+    let res= await players.find({'Nombre_equipo': equipo},{Nombre:1, Posicion:1, _id:0});
     if (res) {
         let llista = [];
         for (let jugador of res) {

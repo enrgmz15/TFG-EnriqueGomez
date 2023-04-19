@@ -25,3 +25,17 @@ export async function getEquipos(){
         return null;
     }
 }
+
+export async function getEquiposPorConferencia(conferencia){
+    let res= await eqps.find({'Conferencia': conferencia},{Nombre:1,_id:0});
+    if (res) {
+        let llista = [];
+        for (let equipo of res) {
+            llista.push(equipo);
+        }
+        return llista;
+    } else {
+        console.log(err);
+        return null;
+    }
+}
