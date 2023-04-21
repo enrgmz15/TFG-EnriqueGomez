@@ -1,5 +1,5 @@
 Consulta per a traure punts per partit
-db.jugadores.aggregate([
+db.juga.aggregate([
   {
     "$lookup": {
       "from": "stats",
@@ -8,18 +8,22 @@ db.jugadores.aggregate([
       "as": "puntos"
     }
   },
-  {"$match : {"puntos.temporada": "temporada_deseada"}},
+  {
+    "$match": {
+      "puntos.temporada": "03/04"
+    }
+  },
   {
     "$project": {
-      "nombre": 1,
-      "puntos.PPP": 1
+      "Nombre": 1,
+      "puntos.Puntos_por_partido": 1,
+      _id: 0
     }
   },
   {
     "$sort": {
-      "puntos.PPP": -1
+      "puntos.Puntos_por_partido": -1
     }
   }
 ])
-
 
