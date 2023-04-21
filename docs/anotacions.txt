@@ -8,6 +8,7 @@ db.jugadores.aggregate([
       "as": "puntos"
     }
   },
+  {"$match : {"puntos.temporada": "temporada_deseada"}},
   {
     "$project": {
       "nombre": 1,
