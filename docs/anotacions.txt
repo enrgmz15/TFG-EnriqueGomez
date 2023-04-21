@@ -1,0 +1,24 @@
+Consulta per a traure punts per partit
+db.jugadores.aggregate([
+  {
+    "$lookup": {
+      "from": "stats",
+      "localField": "codigo",
+      "foreignField": "jugador",
+      "as": "puntos"
+    }
+  },
+  {
+    "$project": {
+      "nombre": 1,
+      "puntos.PPP": 1
+    }
+  },
+  {
+    "$sort": {
+      "puntos.PPP": -1
+    }
+  }
+])
+
+
