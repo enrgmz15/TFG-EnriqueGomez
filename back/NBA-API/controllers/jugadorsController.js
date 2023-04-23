@@ -3,7 +3,6 @@ import { getJugadoresPorEquipo } from "../models/jugadores.js";
 export default class JugadorsController {
 
     static async ObtenerJugadoresPorEquipo(req,res){
-        let lista = []
         let response;
         let type = "application/json";
         let status;
@@ -14,6 +13,7 @@ export default class JugadorsController {
             let llista =  await getJugadores();
             response = { "status": "ok", "data": llista };
             status = 200;
+
         }else{
             let equipo;
             if(typeof(req.params.equipo) !== typeof(undefined)) equipo = req.params.equipo;

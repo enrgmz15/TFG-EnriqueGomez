@@ -2,10 +2,10 @@ import express from 'express';
 
 import equiposController from './controllers/equiposController.js';
 import jugadorsController from './controllers/jugadorsController.js';
+import estadisticasController from './controllers/estadisticasController.js';
 
 import bodyParser from 'body-parser';
-import JugadorsController from './controllers/jugadorsController.js';
-import estadisticasController from './controllers/estadisticasController.js';
+import partidosController from './controllers/partidosControllers.js';
 const { urlencoded, json } = bodyParser;
 
 const app = express();
@@ -24,11 +24,13 @@ const router = express.Router();
 
 router.get('/equipos',equiposController.NombresEquipos);
 
-router.get('/:equipo?/jugadores',jugadorsController.ObtenerJugadoresPorEquipo);
+router.get('/:equipo?/jugadores', jugadorsController.ObtenerJugadoresPorEquipo);
 
 router.get('/:conferencia?/equipos',equiposController.ObtenerEquiposPorConferencia);
 
-router.get('/anotadores',estadisticasController.ObtenerPPP);
+router.get('/:temporada?/:temporada2?/anotadores',estadisticasController.ObtenerPPP);
+
+router.get('/:temporada?/:temporada2?/clasificacion',partidosController.EquiposClasificacion);
 
 
 app.use("/api", router);

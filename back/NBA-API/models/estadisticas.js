@@ -14,11 +14,38 @@ let Estadisticas = new mongoose.Schema({
 });
 
 let stats = mongoose.model('estadisticas', Estadisticas);
+let juga=mongoose.model('jugadores',Jugadores);
 
-export async function getMaximosAnotadores(codigo, temporada){
-    //let res1= await stats.find({"temporada":temporada},{Puntos_por_partido:1,jugador:1,_id:0});
-    //let res2= await juga.find({"codigo":codigo},{Nombre:1,codigo:1,_id:0});
-    let res = await stats.aggregate([
+export async function getMaximosAnotadores(temporada,temporada2){
+  let temp= temporada+'/'+temporada2;
+  let res = await juga.aggregate([
+      {
+        "$lookup": {
+          "from": "estadisticas",
+          "localField": "codigo",
+          "foreignField": "jugador",
+          "as": "puntos"
+        }
+      },
+      {
+        "$match": {
+          "puntos.temporada": temp
+        }
+      },
+      {
+        "$project": {
+          "Nombre": 1,
+          "puntos.Puntos_por_partido": 1,
+          _id: 0
+        }
+      },
+      {
+        "$sort": {
+          "puntos.Puntos_por_partido": -1
+        }
+      }
+    ]);
+    /*let res = await stats.aggregate([
         {
           $match: { 'temporada': temporada } // Filtrar por la temporada deseada
         },
@@ -39,12 +66,17 @@ export async function getMaximosAnotadores(codigo, temporada){
             nombre: "$jugador.Nombre",
             puntosPorPartido: "$Puntos_por_partido"
           }
-        }
-      ]);
+        },
+        {$sort : {puntosPorPartido:-1}}
+      ]);*/
 
     if (res) {
         let llista = [];
-        
+        for(let jugador of res){
+          
+          llista.push(jugador);
+        }
+        console.log(llista);
     } else {
         console.log(err);
         return null;

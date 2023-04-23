@@ -3,7 +3,6 @@ import { getEquipos, getEquiposPorConferencia } from '../models/equipos.js';
 
 export default class EquiposController{
     static async NombresEquipos(req,res){
-        let lista = []
         let response;
         let type = "application/json";
         let status;
@@ -28,7 +27,6 @@ export default class EquiposController{
         res.send(response);
     }
     static async ObtenerEquiposPorConferencia(req,res){
-        let lista = []
         let response;
         let type = "application/json";
         let status;

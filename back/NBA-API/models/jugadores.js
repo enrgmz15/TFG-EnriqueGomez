@@ -11,10 +11,9 @@ let Jugadores = new mongoose.Schema({
     Peso : Number,
     Nombre_equipo : String
 });
-export default mongoose.model('Jugador', Jugadores);
+export default Jugadores;
 
 let players = mongoose.model('jugadores', Jugadores);
-module.exports= players;
 
 export async function getJugadores(){
     let res = await players.find().select('Nombre');
@@ -44,6 +43,8 @@ export async function getJugadoresPorEquipo(equipo){
         console.log(err);
         return null;
     }
+
+
 }
 
 
