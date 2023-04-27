@@ -16,67 +16,234 @@ let Estadisticas = new mongoose.Schema({
 let stats = mongoose.model('estadisticas', Estadisticas);
 let juga=mongoose.model('jugadores',Jugadores);
 
+export async function getEstadisticas(){
+  let res= await stats.find().select('jugador');
+  if (res) {
+      let llista = [];
+      for (let stat of res) {
+          llista.push(stat);
+      }
+
+      return llista;
+  } else {
+      console.log(err);
+      return null;
+  }
+}
+
+export async function statsPorJugador(temporada,temporada2,codigo){
+  let temp= temporada+'/'+temporada2;
+  let res = await stats.find({jugador: parseInt(codigo), temporada: temp}).select('-jugador -temporada -_id');
+  if(res){
+    let llista=[]
+    for(let stat of res){
+      llista.push(stat);
+    }
+    return llista;
+  }else{
+    console.log(err);
+    return null;
+  }
+}
+
 export async function getMaximosAnotadores(temporada,temporada2){
   let temp= temporada+'/'+temporada2;
   let res = await juga.aggregate([
-      {
-        "$lookup": {
-          "from": "estadisticas",
-          "localField": "codigo",
-          "foreignField": "jugador",
-          "as": "puntos"
-        }
-      },
-      {
-        "$match": {
-          "puntos.temporada": temp
-        }
-      },
-      {
-        "$project": {
-          "Nombre": 1,
-          "puntos.Puntos_por_partido": 1,
-          _id: 0
-        }
-      },
-      {
-        "$sort": {
-          "puntos.Puntos_por_partido": -1
-        }
+    {
+      $lookup: {
+        from: "estadisticas",
+        localField: "codigo",
+        foreignField: "jugador",
+        as: "estadisticas"
       }
-    ]);
-    /*let res = await stats.aggregate([
-        {
-          $match: { 'temporada': temporada } // Filtrar por la temporada deseada
-        },
-        {
-          $lookup: { // Unir con la colección de jugadores para obtener su nombre
-            from: "jugadores",
-            localField: "jugador",
-            foreignField: "codigo",
-            as: "jugador"
-          }
-        },
-        {
-          $unwind: "$jugador" // Desagregar el campo jugador
-        },
-        {
-          $project: { // Seleccionar los campos deseados
-            _id: 0,
-            nombre: "$jugador.Nombre",
-            puntosPorPartido: "$Puntos_por_partido"
-          }
-        },
-        {$sort : {puntosPorPartido:-1}}
-      ]);*/
-
+    },
+    {
+      $match: {
+        "estadisticas.temporada": temp
+      }
+    },
+    {
+      $unwind: "$estadisticas"
+    },
+    {
+      $sort: {
+        "estadisticas.Puntos_por_partido": -1
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        Nombre: 1,
+        Puntos_por_partido: "$estadisticas.Puntos_por_partido",
+        Temporada: "$estadisticas.temporada"
+      }
+    }
+  ]
+  );
     if (res) {
         let llista = [];
         for(let jugador of res){
-          
-          llista.push(jugador);
+          if(jugador["Temporada"]===temp){
+          llista.push(jugador);}
+          if(llista.length==30){
+            break;
+          }
         }
         console.log(llista);
+        return llista;
+    } else {
+        console.log(err);
+        return null;
+    }
+
+}
+export async function getMaximosAsistentes(temporada,temporada2){
+  let temp= temporada+'/'+temporada2;
+  let res = await juga.aggregate([
+    {
+      $lookup: {
+        from: "estadisticas",
+        localField: "codigo",
+        foreignField: "jugador",
+        as: "estadisticas"
+      }
+    },
+    {
+      $match: {
+        "estadisticas.temporada": temp
+      }
+    },
+    {
+      $unwind: "$estadisticas"
+    },
+    {
+      $sort: {
+        "estadisticas.Asistencias_por_partido": -1
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        Nombre: 1,
+        Asistencias_por_partido: "$estadisticas.Asistencias_por_partido",
+        Temporada: "$estadisticas.temporada"
+      }
+    }
+  ]
+  );
+    if (res) {
+        let llista = [];
+        for(let jugador of res){
+          if(jugador["Temporada"]===temp){
+          llista.push(jugador);}
+          if(llista.length==30){
+            break;
+          }
+        }
+        console.log(llista);
+        return llista;
+    } else {
+        console.log(err);
+        return null;
+    }
+
+}
+export async function getMaximosReboteadores(temporada,temporada2){
+  let temp= temporada+'/'+temporada2;
+  let res = await juga.aggregate([
+    {
+      $lookup: {
+        from: "estadisticas",
+        localField: "codigo",
+        foreignField: "jugador",
+        as: "estadisticas"
+      }
+    },
+    {
+      $match: {
+        "estadisticas.temporada": temp
+      }
+    },
+    {
+      $unwind: "$estadisticas"
+    },
+    {
+      $sort: {
+        "estadisticas.Rebotes_por_partido": -1
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        Nombre: 1,
+        Asistencias_por_partido: "$estadisticas.Rebotes_por_partido",
+        Temporada: "$estadisticas.temporada"
+      }
+    }
+  ]
+  );
+    if (res) {
+        let llista = [];
+        for(let jugador of res){
+          if(jugador["Temporada"]===temp){
+          llista.push(jugador);}
+          if(llista.length==30){
+            break;
+          }
+        }
+        console.log(llista);
+        return llista;
+    } else {
+        console.log(err);
+        return null;
+    }
+
+}
+export async function getMaximosTaponadores(temporada,temporada2){
+  let temp= temporada+'/'+temporada2;
+  let res = await juga.aggregate([
+    {
+      $lookup: {
+        from: "estadisticas",
+        localField: "codigo",
+        foreignField: "jugador",
+        as: "estadisticas"
+      }
+    },
+    {
+      $match: {
+        "estadisticas.temporada": temp
+      }
+    },
+    {
+      $unwind: "$estadisticas"
+    },
+    {
+      $sort: {
+        "estadisticas.Tapones_por_partido": -1
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        Nombre: 1,
+        Asistencias_por_partido: "$estadisticas.Tapones_por_partido",
+        Temporada: "$estadisticas.temporada"
+      }
+    }
+  ]
+  );
+    if (res) {
+        let llista = [];
+        for(let jugador of res){
+          if(jugador["Temporada"]===temp){
+          llista.push(jugador);}
+          if(llista.length==30){
+            break;
+          }
+        }
+        console.log(llista);
+        return llista;
     } else {
         console.log(err);
         return null;

@@ -1,7 +1,7 @@
 import express from 'express';
 
 import equiposController from './controllers/equiposController.js';
-import jugadorsController from './controllers/jugadorsController.js';
+import jugadoresController from './controllers/jugadoresController.js';
 import estadisticasController from './controllers/estadisticasController.js';
 
 import bodyParser from 'body-parser';
@@ -24,14 +24,21 @@ const router = express.Router();
 
 router.get('/equipos',equiposController.NombresEquipos);
 
-router.get('/:equipo?/jugadores', jugadorsController.ObtenerJugadoresPorEquipo);
+router.get('/:equipo?/jugadores', jugadoresController.ObtenerJugadoresPorEquipo);
 
 router.get('/:conferencia?/equipos',equiposController.ObtenerEquiposPorConferencia);
 
 router.get('/:temporada?/:temporada2?/anotadores',estadisticasController.ObtenerPPP);
 
-router.get('/:temporada?/:temporada2?/clasificacion',partidosController.EquiposClasificacion);
+router.get('/:temporada?/:temporada2?/asistentes',estadisticasController.ObtenerAPP);
 
+router.get('/:temporada?/:temporada2?/reboteadores',estadisticasController.ObtenerRPP);
+
+router.get('/:temporada?/:temporada2?/taponadores',estadisticasController.ObtenerTPP);
+
+router.get('/:temporada?/:temporada2?/:conferencia/clasificacion',partidosController.EquiposClasificacion);
+
+router.get('/stats/:temporada?/:temporada2?/:codigo?', estadisticasController.StatsJugador);
 
 app.use("/api", router);
 

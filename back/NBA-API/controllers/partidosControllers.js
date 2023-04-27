@@ -7,8 +7,9 @@ export default class partidosController{
         let status;
 
         if(typeof(req.params.temporada) === typeof(undefined) &&
-        typeof(req.query.temporada) === typeof(undefined)&& typeof(req.params.temporada2) === typeof(undefined) &&
-        typeof(req.query.temporada2) === typeof(undefined)) {
+        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.temporada2) === typeof(undefined) &&
+        typeof(req.query.temporada2) === typeof(undefined) && typeof(req.params.conferencia) === typeof(undefined) &&
+        typeof(req.query.conferencia) === typeof(undefined)) {
 
             let llista =  await getPartidos();
             response = { "status": "ok", "data": llista };
@@ -16,17 +17,20 @@ export default class partidosController{
         }else{
             let temporada;
             let temporada2;
-            if(typeof(req.params.temporada) !== typeof(undefined) && typeof(req.params.temporada2) !== typeof(undefined)) {
+            let conferencia
+            if(typeof(req.params.temporada) !== typeof(undefined)  && typeof(req.params.temporada2) !== typeof(undefined) && typeof(req.params.conferencia) !== typeof(undefined)) {
             temporada = req.params.temporada;
             temporada2 = req.params.temporada2;
+            conferencia = req.params.conferencia;
             }
             else{
                 temporada = req.query.temporada;
                 temporada2 = req.query.temporada2;
+                conferencia = req.query.conferencia;
             } 
             
 
-            response= await QualiPorTemporada(temporada,temporada2);
+            response= await QualiPorTemporada(temporada,temporada2,conferencia);
             if (!response) response = { "status": "error", "msg": "Not Found" };
         }
         
