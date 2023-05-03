@@ -36,7 +36,7 @@ router.get('/:temporada?/:temporada2?/reboteadores',estadisticasController.Obten
 
 router.get('/:temporada?/:temporada2?/taponadores',estadisticasController.ObtenerTPP);
 
-router.get('/:temporada?/:temporada2?/:conferencia/clasificacion',partidosController.EquiposClasificacion);
+router.get('/:temporada?/:temporada2?/:conferencia?/clasificacion',partidosController.EquiposClasificacion);
 
 router.get('/stats/:temporada?/:temporada2?/:codigo?', estadisticasController.StatsJugador);
 
