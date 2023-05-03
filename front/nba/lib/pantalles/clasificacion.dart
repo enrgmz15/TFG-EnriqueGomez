@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:nba/rutes.dart';
 import 'package:flutter/material.dart';
 
 class ClasificacionTemporada extends StatefulWidget {
@@ -10,17 +10,18 @@ class ClasificacionTemporada extends StatefulWidget {
   final String conferencia;
 
   @override
-  State<ClasificacionTemporada> createState() => _clasificacion();
+  State<ClasificacionTemporada> createState() => _ClasificacionTemporada();
 }
 
-class _clasificacion extends State<ClasificacionTemporada>{
+class _ClasificacionTemporada extends State<ClasificacionTemporada>{
   late Future<dynamic> _listaClasificacion;
 
   @override
   void initState(){
-    _listaClasificacion = ClasiConferencia()
+    _listaClasificacion = ClasiConferencia(widget.temp,widget.temp2,widget.conferencia);
+    super.initState();
   }
-}
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,3 +34,4 @@ class _clasificacion extends State<ClasificacionTemporada>{
       ),
     );
   }
+}

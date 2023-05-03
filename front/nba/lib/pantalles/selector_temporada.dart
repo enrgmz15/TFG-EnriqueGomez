@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nba/pantalles/clasificacion.dart';
 
 class SelectorTemporada extends StatelessWidget{
   const SelectorTemporada({super.key});
@@ -19,15 +20,15 @@ class SelectorTemporada extends StatelessWidget{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const[
-                    TempButton(nom: "05/06"),
-                    TempButton(nom: "06/07")
+                    TempButton(temporada: "05/06"),
+                    TempButton(temporada: "06/07")
                   ],),
                   SizedBox(height:20),
                   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const[
-                    TempButton(nom: "03/04"),
-                    TempButton(nom: "07/08")
+                    TempButton(temporada: "03/04"),
+                    TempButton(temporada: "07/08")
                   ],)
               ],
             )))
@@ -36,19 +37,19 @@ class SelectorTemporada extends StatelessWidget{
   }
 }
 class TempButton extends StatelessWidget {
-  const TempButton({required this.nom, Key? key})
-      : super(key: key);
+  const TempButton({required this.temporada, Key? key});
 
-  final String nom;
+  final String temporada;
 
   @override
   Widget build(BuildContext context) {
+    List<String> temporadas=temporada.split("/");
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ClasificacionTemporada(especie: nom),
+            builder: (context) => ClasificacionTemporada(temp: temporadas.elementAt(1), temp2:temporadas.elementAt(2), conferencia:"East"),
           ),
         );
       },
