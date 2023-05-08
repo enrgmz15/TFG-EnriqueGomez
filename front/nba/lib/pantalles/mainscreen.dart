@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-void main() {
-  runApp(const MainScreen());
-}
+import 'package:nba/rutes.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({required this.temp, required this.temp2, required this.conferencia, super.key});
+
+  final String temp;
+  final String temp2;
+  final String conferencia;
+
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+  late Future<dynamic> _listaClasificacion;
   int _selectedIndex = 0;
+
+  @override
+  void initState(){
+    _listaClasificacion= ClasiConferencia(widget.temp,widget.temp2,widget.conferencia);
+    super.initState();
+  }
 
   static const List<Widget> _widgetOptions = <Widget>[
     ClasificacionPage(),

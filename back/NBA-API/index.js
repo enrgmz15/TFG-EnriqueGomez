@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import equiposController from './controllers/equiposController.js';
 import jugadoresController from './controllers/jugadoresController.js';
@@ -11,6 +12,7 @@ const { urlencoded, json } = bodyParser;
 const app = express();
 app.use(urlencoded({ extended: true }));
 app.use(json());
+app.use(cors());
 
 app.listen(8080, () => {
     console.log('Escuchando por el puerto 8080')

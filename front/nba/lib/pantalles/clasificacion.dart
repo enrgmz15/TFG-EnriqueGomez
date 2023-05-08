@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nba/rutes.dart';
-import 'package:flutter/material.dart';
 
 class ClasificacionTemporada extends StatefulWidget {
   const ClasificacionTemporada({required this.temp, required this.temp2, required this.conferencia, super.key});

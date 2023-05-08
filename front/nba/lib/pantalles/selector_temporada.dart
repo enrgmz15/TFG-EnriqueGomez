@@ -1,86 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:nba/pantalles/clasificacion.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/src/material/colors.dart';
+import 'package:flutter/src/material/material_state.dart';
 
-class SelectorTemporada extends StatelessWidget{
-  const SelectorTemporada({super.key});
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(opacity: 1,
-          image: AssetImage("../../assets/fondo1.jpg"),
-          fit: BoxFit.cover)),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const[
-                    TempButton(temporada: "05/06"),
-                    TempButton(temporada: "06/07")
-                  ],),
-                  SizedBox(height:20),
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const[
-                    TempButton(temporada: "03/04"),
-                    TempButton(temporada: "07/08")
-                  ],)
-              ],
-            )))
-        ),
-      );
-  }
-}
-class TempButton extends StatelessWidget {
-  const TempButton({required this.temporada, Key? key});
-
-  final String temporada;
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});  
 
   @override
   Widget build(BuildContext context) {
-    List<String> temporadas=temporada.split("/");
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ClasificacionTemporada(temp: temporadas.elementAt(1), temp2:temporadas.elementAt(2), conferencia:"East"),
-          ),
-        );
-      },
-      child: Container(
-        width: 220,
-        height: 220,
-        child: Ink(
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: Text(
-              nom,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.yellowAccent,
-                fontSize: 40,
-                shadows: [
-                  Shadow(
-                    offset: Offset(2, 2),
-                    color: Colors.black,
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Selecciona una Temporada'),
+        backgroundColor: Colors.grey,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('../../assets/fondo1.jpg'),
+            fit: BoxFit.cover,
           ),
         ),
+        child: GridView.count(
+        crossAxisCount: 2,
+        childAspectRatio: 3,
+        mainAxisSpacing: 20, // Ajustar espaciado vertical
+        crossAxisSpacing: 20, // Ajustar espaciado horizontal
+        padding: EdgeInsets.all(10),
+        
+        children: List.generate(10, (index) {
+          int startYear = 98 + index;
+          int endYear = startYear + 1;
+          String buttonText="";
+          if(endYear>=100 || startYear>=100){
+            if (endYear>=100){
+              endYear=endYear-100;
+              buttonText = '$startYear/0$endYear';
+            }
+              if (startYear>=100){
+              startYear=startYear-100;
+              buttonText = '0$startYear/0$endYear';
+            }
+          }
+          else{
+            buttonText = '$startYear/$endYear';
+          }
+          return ElevatedButton(
+            child: Text(buttonText,
+            style: TextStyle(fontSize: 20),),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+              backgroundColor: MaterialStateProperty.all(Colors.grey),
+              ),
+            onPressed: () {
+              List<String> temporadas=buttonText.split("/");
+              print(temporadas);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClasificacionTemporada(temp: temporadas.elementAt(0), temp2:temporadas.elementAt(1), conferencia:"East"),
+                ),
+              );
+            },
+          );
+        }).toList(),
       ),
+    ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Botones en Columnas',
+    theme: ThemeData(
+        primarySwatch: Colors.grey,),
+    home: MyHomePage(),
+    debugShowCheckedModeBanner: false
+  ));
 }
