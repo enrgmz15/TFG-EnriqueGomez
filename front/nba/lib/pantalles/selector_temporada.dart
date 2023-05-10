@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nba/pantalles/clasificacion.dart';
+import 'package:nba/pantalles/mainscreen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:flutter/src/material/material_state.dart';
@@ -12,7 +12,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Selecciona una Temporada'),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.red,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -50,7 +50,7 @@ class MyHomePage extends StatelessWidget {
             style: TextStyle(fontSize: 20),),
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.grey),
+              backgroundColor: MaterialStateProperty.all(Colors.red),
               ),
             onPressed: () {
               List<String> temporadas=buttonText.split("/");
@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ClasificacionTemporada(temp: temporadas.elementAt(0), temp2:temporadas.elementAt(1), conferencia:"East"),
+                  builder: (context) => MainScreen(temp: temporadas.elementAt(0), temp2:temporadas.elementAt(1), conferencia:"East"),
                 ),
               );
             },

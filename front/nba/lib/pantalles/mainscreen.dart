@@ -42,11 +42,11 @@ class _MainScreenState extends State<MainScreen> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.red,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('HoopsArchive'),
+          title: Text("Temporada "+widget.temp+"/"+widget.temp2, textAlign: TextAlign.center),
         ),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
@@ -99,6 +99,7 @@ class _ClasificacionPageState extends State<ClasificacionPage>
               children: <Widget>[
                 TabBar(
                   controller: _tabController,
+                  labelColor: Colors.red,
                   tabs: [
                     Tab(text: 'East'),
                     Tab(text: 'West'),
