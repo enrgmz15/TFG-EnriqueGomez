@@ -52,13 +52,11 @@ class MyHomePage extends StatelessWidget {
               foregroundColor: MaterialStateProperty.all(Colors.white),
               backgroundColor: MaterialStateProperty.all(Colors.red),
               ),
-            onPressed: () {
-              List<String> temporadas=buttonText.split("/");
-              print(temporadas);
+            onPressed: () {              
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainScreen(temp: temporadas.elementAt(0), temp2:temporadas.elementAt(1), conferencia:"East"),
+                  builder: (context) => MainScreen(temporada: buttonText, conferencia:"East"),
                 ),
               );
             },
