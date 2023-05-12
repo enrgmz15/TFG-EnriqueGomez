@@ -10,8 +10,7 @@ export default class estadisticasController{
         let status;
 
         if(typeof(req.params.temporada) === typeof(undefined) &&
-        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.temporada2) === typeof(undefined) &&
-        typeof(req.query.temporada2) === typeof(undefined) && typeof(req.params.codigo) === typeof(undefined) &&
+        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.codigo) === typeof(undefined) &&
         typeof(req.query.codigo) === typeof(undefined)) {
             
             let llista =  await getEstadisticas();
@@ -20,21 +19,21 @@ export default class estadisticasController{
             status = 200;
         }else{
             let temporada;
-            let temporada2;
+            //let temporada2;
             let codigo;
-            if(typeof(req.params.temporada) !== typeof(undefined)  && typeof(req.params.temporada2) !== typeof(undefined) && typeof(req.params.codigo) !== typeof(undefined)) {
-            temporada = req.params.temporada;
-            temporada2 = req.params.temporada2;
+            if(typeof(req.query.temporada) !== typeof(undefined)  && typeof(req.params.codigo) !== typeof(undefined)) {
+            temporada = req.query.temporada;
+            //temporada2 = req.params.temporada2;
             codigo = req.params.codigo;
             }
             else{
-                temporada = req.query.temporada;
+                /*temporada = req.query.temporada;
                 temporada2 = req.query.temporada2;
-                codigo = req.query.codigo;
+                codigo = req.query.codigo;*/
             } 
             
 
-            response= await statsPorJugador(temporada,temporada2,codigo);
+            response= await statsPorJugador(temporada,codigo);
             if (!response) response = { "status": "error", "msg": "Not Found" };
         }
         
@@ -49,8 +48,7 @@ export default class estadisticasController{
         let status;
 
         if(typeof(req.params.temporada) === typeof(undefined) &&
-        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.temporada2) === typeof(undefined) &&
-        typeof(req.query.temporada2) === typeof(undefined)) {
+        typeof(req.query.temporada) === typeof(undefined)) {
             
             let llista =  await getEstadisticas();
 
@@ -58,17 +56,14 @@ export default class estadisticasController{
             status = 200;
         }else{
             let temporada;
-            let temporada2;
-            if(typeof(req.params.temporada) !== typeof(undefined)  && typeof(req.params.temporada2) !== typeof(undefined)) {
-            temporada = req.params.temporada;
-            temporada2 = req.params.temporada2;
+            if(typeof(req.query.temporada) !== typeof(undefined)) {
+            temporada = req.query.temporada;
             }
             else{
                 temporada = req.query.temporada;
-                temporada2 = req.query.temporada2;
             }             
 
-            response=  await getMaximosAnotadores(temporada,temporada2);
+            response=  await getMaximosAnotadores(temporada);
             if (!response) response = { "status": "error", "msg": "Not Found" };
         }
         
@@ -83,8 +78,7 @@ export default class estadisticasController{
         let status;
 
         if(typeof(req.params.temporada) === typeof(undefined) &&
-        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.temporada2) === typeof(undefined) &&
-        typeof(req.query.temporada2) === typeof(undefined)) {
+        typeof(req.query.temporada) === typeof(undefined)) {
             
             let llista =  await getEstadisticas();
 
@@ -92,17 +86,14 @@ export default class estadisticasController{
             status = 200;
         }else{
             let temporada;
-            let temporada2;
-            if(typeof(req.params.temporada) !== typeof(undefined)  && typeof(req.params.temporada2) !== typeof(undefined)) {
-            temporada = req.params.temporada;
-            temporada2 = req.params.temporada2;
+            if(typeof(req.query.temporada) !== typeof(undefined)) {
+            temporada = req.query.temporada;
             }
             else{
                 temporada = req.query.temporada;
-                temporada2 = req.query.temporada2;
             }             
 
-            response=  await getMaximosAsistentes(temporada,temporada2);
+            response=  await getMaximosAsistentes(temporada);
             if (!response) response = { "status": "error", "msg": "Not Found" };
         }
         
@@ -116,8 +107,7 @@ export default class estadisticasController{
         let status;
 
         if(typeof(req.params.temporada) === typeof(undefined) &&
-        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.temporada2) === typeof(undefined) &&
-        typeof(req.query.temporada2) === typeof(undefined)) {
+        typeof(req.query.temporada) === typeof(undefined)) {
             
             let llista =  await getEstadisticas();
 
@@ -125,17 +115,14 @@ export default class estadisticasController{
             status = 200;
         }else{
             let temporada;
-            let temporada2;
-            if(typeof(req.params.temporada) !== typeof(undefined)  && typeof(req.params.temporada2) !== typeof(undefined)) {
-            temporada = req.params.temporada;
-            temporada2 = req.params.temporada2;
+            if(typeof(req.query.temporada) !== typeof(undefined)) {
+            temporada = req.query.temporada;
             }
             else{
                 temporada = req.query.temporada;
-                temporada2 = req.query.temporada2;
             }             
 
-            response=  await getMaximosReboteadores(temporada,temporada2);
+            response=  await getMaximosReboteadores(temporada);
             if (!response) response = { "status": "error", "msg": "Not Found" };
         }
         
@@ -149,8 +136,7 @@ export default class estadisticasController{
         let status;
 
         if(typeof(req.params.temporada) === typeof(undefined) &&
-        typeof(req.query.temporada) === typeof(undefined) && typeof(req.params.temporada2) === typeof(undefined) &&
-        typeof(req.query.temporada2) === typeof(undefined)) {
+        typeof(req.query.temporada) === typeof(undefined)) {
             
             let llista =  await getEstadisticas();
 
@@ -158,17 +144,14 @@ export default class estadisticasController{
             status = 200;
         }else{
             let temporada;
-            let temporada2;
-            if(typeof(req.params.temporada) !== typeof(undefined)  && typeof(req.params.temporada2) !== typeof(undefined)) {
-            temporada = req.params.temporada;
-            temporada2 = req.params.temporada2;
+            if(typeof(req.query.temporada) !== typeof(undefined)) {
+            temporada = req.query.temporada;
             }
             else{
                 temporada = req.query.temporada;
-                temporada2 = req.query.temporada2;
             }             
 
-            response=  await getMaximosTaponadores(temporada,temporada2);
+            response=  await getMaximosTaponadores(temporada);
             if (!response) response = { "status": "error", "msg": "Not Found" };
         }
         

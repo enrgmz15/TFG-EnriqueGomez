@@ -29,12 +29,11 @@ export async function getJugadores(){
     }
 }
 
-export async function QualiPorTemporada(temporada, temporada2, conferencia){
-    let temp= temporada+'/'+temporada2;
+export async function QualiPorTemporada(temporada, conferencia){
     let res = await games.aggregate([
         {
           $match: {
-            "temporada": temp
+            "temporada": temporada
           }
         },
         {

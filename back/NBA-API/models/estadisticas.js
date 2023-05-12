@@ -31,9 +31,9 @@ export async function getEstadisticas(){
   }
 }
 
-export async function statsPorJugador(temporada,temporada2,codigo){
-  let temp= temporada+'/'+temporada2;
-  let res = await stats.find({jugador: parseInt(codigo), temporada: temp}).select('-jugador -temporada -_id');
+export async function statsPorJugador(temporada,codigo){
+  //let temp= temporada+'/'+temporada2;
+  let res = await stats.find({jugador: parseInt(codigo), temporada: temporada}).select('-jugador -temporada -_id');
   if(res){
     let llista=[]
     for(let stat of res){
@@ -46,8 +46,7 @@ export async function statsPorJugador(temporada,temporada2,codigo){
   }
 }
 
-export async function getMaximosAnotadores(temporada,temporada2){
-  let temp= temporada+'/'+temporada2;
+export async function getMaximosAnotadores(temporada){
   let res = await juga.aggregate([
     {
       $lookup: {
@@ -59,7 +58,7 @@ export async function getMaximosAnotadores(temporada,temporada2){
     },
     {
       $match: {
-        "estadisticas.temporada": temp
+        "estadisticas.temporada": temporada
       }
     },
     {
@@ -83,7 +82,7 @@ export async function getMaximosAnotadores(temporada,temporada2){
     if (res) {
         let llista = [];
         for(let jugador of res){
-          if(jugador["Temporada"]===temp){
+          if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
           if(llista.length==30){
             break;
@@ -97,8 +96,7 @@ export async function getMaximosAnotadores(temporada,temporada2){
     }
 
 }
-export async function getMaximosAsistentes(temporada,temporada2){
-  let temp= temporada+'/'+temporada2;
+export async function getMaximosAsistentes(temporada){
   let res = await juga.aggregate([
     {
       $lookup: {
@@ -110,7 +108,7 @@ export async function getMaximosAsistentes(temporada,temporada2){
     },
     {
       $match: {
-        "estadisticas.temporada": temp
+        "estadisticas.temporada": temporada
       }
     },
     {
@@ -134,7 +132,7 @@ export async function getMaximosAsistentes(temporada,temporada2){
     if (res) {
         let llista = [];
         for(let jugador of res){
-          if(jugador["Temporada"]===temp){
+          if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
           if(llista.length==30){
             break;
@@ -148,8 +146,7 @@ export async function getMaximosAsistentes(temporada,temporada2){
     }
 
 }
-export async function getMaximosReboteadores(temporada,temporada2){
-  let temp= temporada+'/'+temporada2;
+export async function getMaximosReboteadores(temporada){
   let res = await juga.aggregate([
     {
       $lookup: {
@@ -161,7 +158,7 @@ export async function getMaximosReboteadores(temporada,temporada2){
     },
     {
       $match: {
-        "estadisticas.temporada": temp
+        "estadisticas.temporada": temporada
       }
     },
     {
@@ -185,7 +182,7 @@ export async function getMaximosReboteadores(temporada,temporada2){
     if (res) {
         let llista = [];
         for(let jugador of res){
-          if(jugador["Temporada"]===temp){
+          if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
           if(llista.length==30){
             break;
@@ -199,8 +196,7 @@ export async function getMaximosReboteadores(temporada,temporada2){
     }
 
 }
-export async function getMaximosTaponadores(temporada,temporada2){
-  let temp= temporada+'/'+temporada2;
+export async function getMaximosTaponadores(temporada){
   let res = await juga.aggregate([
     {
       $lookup: {
@@ -212,7 +208,7 @@ export async function getMaximosTaponadores(temporada,temporada2){
     },
     {
       $match: {
-        "estadisticas.temporada": temp
+        "estadisticas.temporada": temporada
       }
     },
     {
@@ -236,7 +232,7 @@ export async function getMaximosTaponadores(temporada,temporada2){
     if (res) {
         let llista = [];
         for(let jugador of res){
-          if(jugador["Temporada"]===temp){
+          if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
           if(llista.length==30){
             break;

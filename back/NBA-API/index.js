@@ -26,21 +26,21 @@ const router = express.Router();
 
 router.get('/equipos',equiposController.NombresEquipos);
 
-router.get('/:equipo?/jugadores', jugadoresController.ObtenerJugadoresPorEquipo);
+router.get('/:equipo/jugadores', jugadoresController.ObtenerJugadoresPorEquipo);
 
-router.get('/:conferencia?/equipos',equiposController.ObtenerEquiposPorConferencia);
+router.get('/:conferencia/equipos',equiposController.ObtenerEquiposPorConferencia);
 
-router.get('/:temporada?/:temporada2?/anotadores',estadisticasController.ObtenerPPP);
+router.get('/anotadores',estadisticasController.ObtenerPPP);
 
-router.get('/:temporada?/:temporada2?/asistentes',estadisticasController.ObtenerAPP);
+router.get('/asistentes',estadisticasController.ObtenerAPP);
 
-router.get('/:temporada?/:temporada2?/reboteadores',estadisticasController.ObtenerRPP);
+router.get('/reboteadores',estadisticasController.ObtenerRPP);
 
-router.get('/:temporada?/:temporada2?/taponadores',estadisticasController.ObtenerTPP);
+router.get('/taponadores',estadisticasController.ObtenerTPP);
 
-router.get('/:temporada?/:temporada2?/:conferencia?/clasificacion',partidosController.EquiposClasificacion);
+router.get('/:conferencia/clasificacion',partidosController.EquiposClasificacion);
 
-router.get('/stats/:temporada?/:temporada2?/:codigo?', estadisticasController.StatsJugador);
+router.get('/stats/:codigo', estadisticasController.StatsJugador);
 
 app.use("/api", router);
 
