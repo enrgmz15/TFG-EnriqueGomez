@@ -3,10 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:nba/rutes.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({required this.temp, required this.temp2, required this.conferencia, super.key});
+  const MainScreen({required this.temporada, required this.conferencia, super.key});
 
-  final String temp;
-  final String temp2;
+  final String temporada;
   final String conferencia;
 
 
@@ -20,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState(){
-    _listaClasificacion= ClasiConferencia(widget.temp,widget.temp2,widget.conferencia);
+    _listaClasificacion= ClasiConferencia(widget.temporada,widget.conferencia);
     super.initState();
   }
 
@@ -46,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Temporada "+widget.temp+"/"+widget.temp2, textAlign: TextAlign.center),
+          title: Text("Temporada "+widget.temporada, textAlign: TextAlign.center),
         ),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
