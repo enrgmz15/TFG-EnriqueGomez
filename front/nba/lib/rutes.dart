@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future <dynamic> ClasiConferencia(String temp, String temp2, String conferencia) async {
-  String url = 'http://localhost:8080/api/$temp/$temp2/$conferencia/clasificacion';
+Future <dynamic> ClasiConferencia(String temporada, String conferencia) async {
+  String url = 'http://localhost:8080/api/$conferencia/clasificacion?temporada=$temporada';
 
   http.Response response = await http.get(Uri.parse(url));
 
