@@ -6,7 +6,7 @@ export default class EquiposController{
         let response;
         let type = "application/json";
         let status;
-
+        console.log(req.query);
         if(typeof(req.params.nombre) === typeof(undefined) &&
         typeof(req.query.nombre) === typeof(undefined)) {
 

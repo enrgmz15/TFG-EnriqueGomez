@@ -81,8 +81,7 @@ class ClasificacionPage extends StatefulWidget {
   State<ClasificacionPage> createState() => _ClasificacionPageState();
 }
 
-class _ClasificacionPageState extends State<ClasificacionPage>
-    with SingleTickerProviderStateMixin {
+class _ClasificacionPageState extends State<ClasificacionPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override

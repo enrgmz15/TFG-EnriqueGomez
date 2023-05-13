@@ -18,3 +18,98 @@ Future <dynamic> ClasiConferencia(String temporada, String conferencia) async {
     throw Exception('No connecta');
   }
 }
+
+Future <dynamic> Equipos() async {
+  String url = 'http://localhost:8080/api/equipos';
+
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}
+
+Future <dynamic> JugadoresPorEquipo(String equipo) async {
+  String url = 'http://localhost:8080/api/$equipo/jugadores';
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}
+
+Future <dynamic> MaxPPP(String temporada) async {
+  String url = 'http://localhost:8080/api/anotadores?temporada=$temporada';
+
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}
+
+Future <dynamic> MaxAPP(String temporada) async {
+  String url = 'http://localhost:8080/api/asistentes?temporada=$temporada';
+
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}
+
+Future <dynamic> MaxRPP(String temporada) async {
+  String url = 'http://localhost:8080/api/reboteadores?temporada=$temporada';
+
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}
+
+Future <dynamic> MaxTPP(String temporada) async {
+  String url = 'http://localhost:8080/api/taponadores?temporada=$temporada';
+
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}
