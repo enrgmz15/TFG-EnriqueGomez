@@ -12,11 +12,11 @@ let Equipos = new mongoose.Schema({
 let eqps = mongoose.model('equipos', Equipos);  
 
 export async function getEquipos(){
-    let res= await eqps.find().select('Nombre');
+    let res= await eqps.find({},{Nombre:1,Ciudad:1,_id:0});
     if (res) {
         let llista = [];
         for (let equipo of res) {
-            llista.push(equipo["Nombre"]);
+            llista.push(equipo);
         }
 
         return llista;

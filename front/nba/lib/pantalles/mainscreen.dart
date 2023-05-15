@@ -130,19 +130,60 @@ class _ClasificacionPageState extends State<ClasificacionPage> with SingleTicker
   }
 }
 
-class EquiposPage extends StatelessWidget {
+class EquiposPage extends StatefulWidget {
   const EquiposPage({Key? key}) : super(key: key);
 
   @override
+  _EquiposPageState createState() => _EquiposPageState();
+}
+
+class _EquiposPageState extends State<EquiposPage> {
+  late Future<dynamic> _listaEquipos;
+
+  @override
+  void initState() {
+    _listaEquipos = Equipos();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String dropdownValue = 'Puntos por Partido';
     return Scaffold(
-      body: const Center(
-        child: Text('Equipos Page'),
+      body: FutureBuilder<dynamic>(
+        future: _listaEquipos,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            // Ejemplo: 
+            final equipos = snapshot.data["llista"];
+            return ListView.builder(
+              itemCount: equipos.length,
+              itemBuilder: (BuildContext context, int index) {
+                final equipo = equipos[index];
+                var nombre=equipo['Nombre'];
+                return ListTile(
+                  leading : new Image(image: new AssetImage("../../assets/${nombre}.png")),
+                  title: Text(equipo['Ciudad']+" "+equipo['Nombre']),
+                );
+              },
+             );
+            return Center(
+              child: Text('Equipos Page'),
+            );
+          }
+        },
       ),
     );
   }
 }
+
 
 class LideresTab extends StatefulWidget {
   const LideresTab({Key? key}) : super(key: key);

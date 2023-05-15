@@ -11,7 +11,7 @@ export default class EquiposController{
         typeof(req.query.nombre) === typeof(undefined)) {
 
             let llista = await getEquipos();
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let nombre;
