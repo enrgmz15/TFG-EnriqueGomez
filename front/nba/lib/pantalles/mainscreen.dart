@@ -24,9 +24,9 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   static const List<Widget> _widgetOptions = <Widget>[
-    ClasificacionPage(),
-    EquiposPage(),
-    LideresTab(),
+    ClasificacionPage(temporada: temporada),
+    EquiposPage(tmeporada: temporada),
+    LideresTab(temporada: temporada),
   ];
 
   void _onItemTapped(int index) {
@@ -75,7 +75,9 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class ClasificacionPage extends StatefulWidget {
-  const ClasificacionPage({Key? key}) : super(key: key);
+  const ClasificacionPage({Key? key,required this.temporada}) : super(key: key);
+
+  final String temporada;
 
   @override
   State<ClasificacionPage> createState() => _ClasificacionPageState();
@@ -131,7 +133,9 @@ class _ClasificacionPageState extends State<ClasificacionPage> with SingleTicker
 }
 
 class EquiposPage extends StatefulWidget {
-  const EquiposPage({Key? key}) : super(key: key);
+  const EquiposPage({Key? key,required this.temporada}) : super(key: key);
+
+  final String temporada;
 
   @override
   _EquiposPageState createState() => _EquiposPageState();
@@ -186,7 +190,9 @@ class _EquiposPageState extends State<EquiposPage> {
 
 
 class LideresTab extends StatefulWidget {
-  const LideresTab({Key? key}) : super(key: key);
+  const LideresTab({Key? key,required this.temporada}) : super(key: key);
+
+  final String temporada;
 
   @override
   _LideresTabState createState() => _LideresTabState();
