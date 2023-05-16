@@ -15,7 +15,7 @@ export default class estadisticasController{
             
             let llista =  await getEstadisticas();
 
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let temporada;
@@ -52,7 +52,7 @@ export default class estadisticasController{
             
             let llista =  await getEstadisticas();
 
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let temporada;
@@ -82,7 +82,7 @@ export default class estadisticasController{
             
             let llista =  await getEstadisticas();
 
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let temporada;
@@ -111,7 +111,7 @@ export default class estadisticasController{
             
             let llista =  await getEstadisticas();
 
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let temporada;
@@ -140,7 +140,7 @@ export default class estadisticasController{
             
             let llista =  await getEstadisticas();
 
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let temporada;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nba/pantalles/info_equipo.dart';
 import 'package:nba/rutes.dart';
 
 class MainScreen extends StatefulWidget {
@@ -23,11 +24,19 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
+  static List<Widget> _widgetOptions(String temporada) {
+    return <Widget>[
+      ClasificacionPage(temporada: temporada),
+      EquiposPage(temporada: temporada),
+      LideresTab(temporada: temporada),
+    ];
+  }
+  /*
   static const List<Widget> _widgetOptions = <Widget>[
-    ClasificacionPage(temporada: temporada),
-    EquiposPage(tmeporada: temporada),
-    LideresTab(temporada: temporada),
-  ];
+    ClasificacionPage(temporada: widget.temporada),
+    EquiposPage(temporada: widget.temporada),
+    LideresTab(temporada: widget.temporada),
+  ];*/
 
   void _onItemTapped(int index) {
     setState(() {
@@ -48,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
           title: Text("Temporada "+widget.temporada, textAlign: TextAlign.center),
         ),
         body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+          child: _widgetOptions(widget.temporada).elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -141,7 +150,7 @@ class EquiposPage extends StatefulWidget {
   _EquiposPageState createState() => _EquiposPageState();
 }
 
-class _EquiposPageState extends State<EquiposPage> {
+class _EquiposPageState extends State<EquiposPage> {  
   late Future<dynamic> _listaEquipos;
 
   @override
@@ -166,21 +175,29 @@ class _EquiposPageState extends State<EquiposPage> {
             );
           } else {
             // Ejemplo: 
-            final equipos = snapshot.data["llista"];
+            final List equipos = snapshot.data["llista"];
             return ListView.builder(
               itemCount: equipos.length,
               itemBuilder: (BuildContext context, int index) {
                 final equipo = equipos[index];
                 var nombre=equipo['Nombre'];
-                return ListTile(
+                return GestureDetector(
+                  onTap: (() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) =>InfoEquipo(temporada: widget.temporada, equipo: nombre))
+                      )
+                    );
+                    }
+                    ),
+                  child: ListTile(
                   leading : new Image(image: new AssetImage("../../assets/${nombre}.png")),
                   title: Text(equipo['Ciudad']+" "+equipo['Nombre']),
+                  ),
                 );
               },
              );
-            return Center(
-              child: Text('Equipos Page'),
-            );
           }
         },
       ),

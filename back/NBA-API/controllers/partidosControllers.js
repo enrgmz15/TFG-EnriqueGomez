@@ -11,7 +11,7 @@ export default class partidosController{
         typeof(req.query.conferencia) === typeof(undefined)) {
 
             let llista =  await getPartidos();
-            response = { "status": "ok", "data": llista };
+            response = { llista };
             status = 200;
         }else{
             let temporada;
