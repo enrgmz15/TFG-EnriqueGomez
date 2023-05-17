@@ -153,6 +153,15 @@ class EquiposPage extends StatefulWidget {
 class _EquiposPageState extends State<EquiposPage> {  
   late Future<dynamic> _listaEquipos;
 
+  void _toInfoEquipo(String equipo){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) =>InfoEquipo(temporada: widget.temporada, equipo: equipo))
+        )
+        );
+  }
+
   @override
   void initState() {
     _listaEquipos = Equipos();
@@ -183,12 +192,7 @@ class _EquiposPageState extends State<EquiposPage> {
                 var nombre=equipo['Nombre'];
                 return GestureDetector(
                   onTap: (() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) =>InfoEquipo(temporada: widget.temporada, equipo: nombre))
-                      )
-                    );
+                    _toInfoEquipo(equipo);
                     }
                     ),
                   child: ListTile(
