@@ -23,6 +23,9 @@ class _InfoEquipoState extends State<InfoEquipo>{
     @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(equipo),
+      ),
       body: FutureBuilder<dynamic>(
         future: __listaJugadores,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {

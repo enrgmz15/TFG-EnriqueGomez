@@ -157,8 +157,7 @@ class _EquiposPageState extends State<EquiposPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: ((context) =>InfoEquipo(temporada: widget.temporada, equipo: equipo))
-        )
+        builder: (context) =>InfoEquipo(temporada: widget.temporada, equipo: equipo)
         );
   }
 
