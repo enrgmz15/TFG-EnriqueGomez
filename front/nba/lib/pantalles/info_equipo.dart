@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:nba/rutes.dart';
 
 class InfoEquipo extends StatefulWidget{
-  const InfoEquipo({required this.temporada, required this.equipo , super.key});
+  const InfoEquipo({required this.temporada, required this.equipo , required this.ciudad,super.key});
 
   final String temporada;
   final String equipo;
+  final String ciudad;
 
   @override
   State<InfoEquipo> createState() => _InfoEquipoState();
@@ -16,7 +17,7 @@ class _InfoEquipoState extends State<InfoEquipo>{
 
   @override
   void initState() {
-    __listaJugadores= JugadoresPorEquipo(widget.temporada);
+    __listaJugadores= JugadoresPorEquipo(widget.equipo);
     super.initState();  
   }
 
@@ -24,7 +25,10 @@ class _InfoEquipoState extends State<InfoEquipo>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(equipo),
+        backgroundColor: Colors.red,
+        centerTitle: true,
+        title: Text(widget.ciudad+" "+widget.equipo),
+        actions: [new Image(image: AssetImage("../../assets/${widget.equipo}.png"))],
       ),
       body: FutureBuilder<dynamic>(
         future: __listaJugadores,
@@ -39,7 +43,7 @@ class _InfoEquipoState extends State<InfoEquipo>{
             );
           } else {
             // Ejemplo: 
-            final List jugadores = snapshot.data["llista"];
+            final jugadores = snapshot.data;
             return ListView.builder(
               itemCount: jugadores.length,
               itemBuilder: (BuildContext context, int index) {

@@ -31,12 +31,6 @@ class _MainScreenState extends State<MainScreen> {
       LideresTab(temporada: temporada),
     ];
   }
-  /*
-  static const List<Widget> _widgetOptions = <Widget>[
-    ClasificacionPage(temporada: widget.temporada),
-    EquiposPage(temporada: widget.temporada),
-    LideresTab(temporada: widget.temporada),
-  ];*/
 
   void _onItemTapped(int index) {
     setState(() {
@@ -46,14 +40,10 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.red,
+          centerTitle: true,
           title: Text("Temporada "+widget.temporada, textAlign: TextAlign.center),
         ),
         body: Center(
@@ -78,8 +68,7 @@ class _MainScreenState extends State<MainScreen> {
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -107,6 +96,7 @@ class _ClasificacionPageState extends State<ClasificacionPage> with SingleTicker
       body: Column(
               children: <Widget>[
                 TabBar(
+                  indicatorColor: Colors.red,
                   controller: _tabController,
                   labelColor: Colors.red,
                   tabs: [
@@ -153,11 +143,12 @@ class EquiposPage extends StatefulWidget {
 class _EquiposPageState extends State<EquiposPage> {  
   late Future<dynamic> _listaEquipos;
 
-  void _toInfoEquipo(String equipo){
+  void _toInfoEquipo(String equipo, String ciudad){
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>InfoEquipo(temporada: widget.temporada, equipo: equipo)
+        builder: (context) =>InfoEquipo(temporada: widget.temporada, equipo: equipo ,ciudad : ciudad)
+        )
         );
   }
 
@@ -189,14 +180,15 @@ class _EquiposPageState extends State<EquiposPage> {
               itemBuilder: (BuildContext context, int index) {
                 final equipo = equipos[index];
                 var nombre=equipo['Nombre'];
+                var ciudad = equipo['Ciudad'];
                 return GestureDetector(
                   onTap: (() {
-                    _toInfoEquipo(equipo);
+                    _toInfoEquipo(nombre, ciudad);
                     }
                     ),
                   child: ListTile(
                   leading : new Image(image: new AssetImage("../../assets/${nombre}.png")),
-                  title: Text(equipo['Ciudad']+" "+equipo['Nombre']),
+                  title: Text(ciudad+" "+nombre),
                   ),
                 );
               },
