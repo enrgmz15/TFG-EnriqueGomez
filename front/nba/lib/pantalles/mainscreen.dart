@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     return <Widget>[
       ClasificacionPage(temporada: temporada),
       EquiposPage(temporada: temporada),
-      LideresTab(temporada: temporada),
+      LideresPage(temporada: temporada),
     ];
   }
 
@@ -83,11 +83,15 @@ class ClasificacionPage extends StatefulWidget {
 
 class _ClasificacionPageState extends State<ClasificacionPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late Future<dynamic> _eastClasificacion;
+  late Future<dynamic> _westClasificacion;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _eastClasificacion = ClasiConferencia(widget.temporada, "East");
+    _westClasificacion = ClasiConferencia(widget.temporada, "West");
   }
 
   @override
@@ -108,16 +112,62 @@ class _ClasificacionPageState extends State<ClasificacionPage> with SingleTicker
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      Container(
-                        child: Center(
-                          child: Text('East tab content'),
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text('West tab content'),
-                        ),
-                      ),
+                      FutureBuilder<dynamic>(
+                  future: _eastClasificacion,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    } else {
+                      final List clasificacion=snapshot.data;
+                      return ListView.builder(
+                        itemCount: clasificacion.length,
+                        itemBuilder: (context, index) {
+                          final equipo = clasificacion[index];
+                          var pos=index+1;
+                          return ListTile(
+                            leading: Text(pos.toString()),
+                            title: Text(equipo['equipo']),
+                            trailing: Text("${equipo['victorias']} - ${equipo['derrotas']}"),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+                       FutureBuilder<dynamic>(
+                  future: _westClasificacion,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    } else {
+                      final List clasificacion=snapshot.data;
+                      return ListView.builder(
+                        itemCount: clasificacion.length,
+                        itemBuilder: (context, index) {
+                          final equipo = clasificacion[index];
+                          var pos=index+1;
+                          return ListTile(
+                            leading: Text(pos.toString()),
+                            title: Text(equipo['equipo']),
+                            trailing: Text("${equipo['victorias']} - ${equipo['derrotas']}"),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
                     ],
                   ),
                 ),
@@ -201,16 +251,16 @@ class _EquiposPageState extends State<EquiposPage> {
 }
 
 
-class LideresTab extends StatefulWidget {
-  const LideresTab({Key? key,required this.temporada}) : super(key: key);
+class LideresPage extends StatefulWidget {
+  const LideresPage({Key? key,required this.temporada}) : super(key: key);
 
   final String temporada;
 
   @override
-  _LideresTabState createState() => _LideresTabState();
+  _LideresPageState createState() => _LideresPageState();
 }
 
-class _LideresTabState extends State<LideresTab> {
+class _LideresPageState extends State<LideresPage> {
   String _dropdownValue = 'Puntos por Partido';
 
   @override
@@ -223,9 +273,9 @@ class _LideresTabState extends State<LideresTab> {
           children: [
             DropdownButton<String>(
               value: _dropdownValue,
-              onChanged: (String? newValue) {
+              onChanged: (String? valorNou) {
                 setState(() {
-                  _dropdownValue = newValue!;
+                  _dropdownValue = valorNou!;
                 });
               },
               items: <String>[
@@ -233,10 +283,10 @@ class _LideresTabState extends State<LideresTab> {
                 'Rebotes por partido',
                 'Asistencias por Partido',
                 'Tapones por Partido'
-              ].map<DropdownMenuItem<String>>((String value) {
+              ].map<DropdownMenuItem<String>>((String valor) {
                 return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
+                  value: valor,
+                  child: Text(valor),
                 );
               }).toList(),
             ),
