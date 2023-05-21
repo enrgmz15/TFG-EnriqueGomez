@@ -50,7 +50,7 @@ Future <dynamic> JugadoresPorEquipo(String equipo) async {
   }
 }
 
-Future <dynamic> MaxPPP(String temporada) async {
+Future <List> Lideres(String temporada) async {
   String url = 'http://localhost:8080/api/anotadores?temporada=$temporada';
 
   http.Response response = await http.get(Uri.parse(url));
@@ -65,7 +65,7 @@ Future <dynamic> MaxPPP(String temporada) async {
     throw Exception('No connecta');
   }
 }
-
+/*
 Future <dynamic> MaxAPP(String temporada) async {
   String url = 'http://localhost:8080/api/asistentes?temporada=$temporada';
 
@@ -112,4 +112,4 @@ Future <dynamic> MaxTPP(String temporada) async {
   } else {
     throw Exception('No connecta');
   }
-}
+}*/

@@ -252,7 +252,7 @@ class _EquiposPageState extends State<EquiposPage> {
 
 
 class LideresPage extends StatefulWidget {
-  const LideresPage({Key? key,required this.temporada}) : super(key: key);
+  const LideresPage({Key? key, required this.temporada}) : super(key: key);
 
   final String temporada;
 
@@ -261,7 +261,21 @@ class LideresPage extends StatefulWidget {
 }
 
 class _LideresPageState extends State<LideresPage> {
+  late Future<List> _listaLideres;
   String _dropdownValue = 'Puntos por Partido';
+
+  Map<String, String> _lideresOptions = {
+    'Puntos por Partido': 'anotadores',
+    'Rebotes por partido': 'reboteadores',
+    'Asistencias por Partido': 'asistentes',
+    'Tapones por Partido': 'taponadores'
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _listaLideres = Lideres(widget.temporada);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -273,17 +287,13 @@ class _LideresPageState extends State<LideresPage> {
           children: [
             DropdownButton<String>(
               value: _dropdownValue,
-              onChanged: (String? valorNou) {
+              onChanged: (String? newValue) {
                 setState(() {
-                  _dropdownValue = valorNou!;
+                  _dropdownValue = newValue!;
+                  _listaLideres = Lideres(widget.temporada);
                 });
               },
-              items: <String>[
-                'Puntos por Partido',
-                'Rebotes por partido',
-                'Asistencias por Partido',
-                'Tapones por Partido'
-              ].map<DropdownMenuItem<String>>((String valor) {
+              items: _lideresOptions.keys.map<DropdownMenuItem<String>>((String valor) {
                 return DropdownMenuItem<String>(
                   value: valor,
                   child: Text(valor),
@@ -292,8 +302,32 @@ class _LideresPageState extends State<LideresPage> {
             ),
             Expanded(
               child: Container(
-                child: Center(
-                  child: Text('Lideres page'),
+                child: FutureBuilder<List>(
+                  future: _listaLideres,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final list = snapshot.data!;
+                      return ListView.builder(
+                        itemCount: list.length,
+                        itemBuilder: (context, index) {
+                          final item = list[index];
+                          // Aquí puedes personalizar la visualización de cada elemento en la lista
+                          return ListTile(
+                            title: Text(item['Nombre']),
+                            subtitle: Text(item['Puntos_por_partido'].toString()),
+                          );
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
                 ),
               ),
             )
