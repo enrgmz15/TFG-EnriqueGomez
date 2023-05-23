@@ -264,17 +264,17 @@ class _LideresPageState extends State<LideresPage> {
   late Future<List> _listaLideres;
   String _dropdownValue = 'Puntos por Partido';
 
-  Map<String, String> _lideresOptions = {
-    'Puntos por Partido': 'anotadores',
-    'Rebotes por partido': 'reboteadores',
-    'Asistencias por Partido': 'asistentes',
-    'Tapones por Partido': 'taponadores'
+  Set<String> _lideresOptions = {
+    'Puntos por Partido',
+    'Rebotes por partido',
+    'Asistencias por Partido',
+    'Tapones por Partido'
   };
 
   @override
   void initState() {
     super.initState();
-    _listaLideres = Lideres(widget.temporada);
+    _listaLideres = MaxPPP(widget.temporada);
   }
 
   @override
@@ -290,47 +290,163 @@ class _LideresPageState extends State<LideresPage> {
               onChanged: (String? newValue) {
                 setState(() {
                   _dropdownValue = newValue!;
-                  _listaLideres = Lideres(widget.temporada);
+                  if(_dropdownValue=='Puntos por Partido'){
+                  _listaLideres = MaxPPP(widget.temporada);
+                  }
+                  if(_dropdownValue=='Rebotes por Partido'){
+                  _listaLideres = MaxRPP(widget.temporada);
+                  }
+                  if(_dropdownValue=='Asistencias por Partido'){
+                  _listaLideres = MaxAPP(widget.temporada);
+                  }
+                  if(_dropdownValue=='Tapones por Partido'){
+                  _listaLideres = MaxTPP(widget.temporada);
+                  }
                 });
               },
-              items: _lideresOptions.keys.map<DropdownMenuItem<String>>((String valor) {
+              items: _lideresOptions.map<DropdownMenuItem<String>>((String valor) {
                 return DropdownMenuItem<String>(
                   value: valor,
                   child: Text(valor),
                 );
               }).toList(),
             ),
-            Expanded(
-              child: Container(
-                child: FutureBuilder<List>(
-                  future: _listaLideres,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final list = snapshot.data!;
-                      return ListView.builder(
-                        itemCount: list.length,
-                        itemBuilder: (context, index) {
-                          final item = list[index];
-                          // Aquí puedes personalizar la visualización de cada elemento en la lista
-                          return ListTile(
-                            title: Text(item['Nombre']),
-                            subtitle: Text(item['Puntos_por_partido'].toString()),
-                          );
-                        },
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Error: ${snapshot.error}'),
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
+            if(_dropdownValue=='Puntos por Partido')
+              Expanded(
+                child: Container(
+                  child: FutureBuilder<List>(
+                    future: _listaLideres,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final list = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            final item = list[index];
+                            var pos = index+1;
+                            // Aquí puedes personalizar la visualización de cada elemento en la lista
+                            return ListTile(
+                              leading: Text(pos.toString()),
+                              title: Text(item['Nombre']),
+                              trailing: Text(item['Puntos_por_partido'].toString()),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
-            )
+              if(_dropdownValue=='Rebotes por Partido')
+              Expanded(
+                child: Container(
+                  child: FutureBuilder<List>(
+                    future: _listaLideres,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final list = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            final item = list[index];
+                            var pos = index+1;
+                            // Aquí puedes personalizar la visualización de cada elemento en la lista
+                            return ListTile(
+                              leading: Text(pos.toString()),
+                              title: Text(item['Nombre']),
+                              trailing: Text(item['Rebotes_por_partido'].toString()),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
+              if(_dropdownValue=='Asistencias por Partido')
+              Expanded(
+                child: Container(
+                  child: FutureBuilder<List>(
+                    future: _listaLideres,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final list = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            final item = list[index];
+                            var pos = index+1;
+                            // Aquí puedes personalizar la visualización de cada elemento en la lista
+                            return ListTile(
+                              leading: Text(pos.toString()),
+                              title: Text(item['Nombre']),
+                              trailing: Text(item['Asistencias_por_partido'].toString()),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
+              if(_dropdownValue=='Tapones por Partido')
+              Expanded(
+                child: Container(
+                  child: FutureBuilder<List>(
+                    future: _listaLideres,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final list = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            final item = list[index];
+                            var pos = index+1;
+                            // Aquí puedes personalizar la visualización de cada elemento en la lista
+                            return ListTile(
+                              leading: Text(pos.toString()),
+                              title: Text(item['Nombre']),
+                              trailing: Text(item['Tapones_por_partido'].toString()),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
           ],
         ),
       ),

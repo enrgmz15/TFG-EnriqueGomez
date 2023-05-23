@@ -50,7 +50,7 @@ Future <dynamic> JugadoresPorEquipo(String equipo) async {
   }
 }
 
-Future <List> Lideres(String temporada) async {
+Future <List> MaxPPP(String temporada) async {
   String url = 'http://localhost:8080/api/anotadores?temporada=$temporada';
 
   http.Response response = await http.get(Uri.parse(url));
@@ -65,8 +65,8 @@ Future <List> Lideres(String temporada) async {
     throw Exception('No connecta');
   }
 }
-/*
-Future <dynamic> MaxAPP(String temporada) async {
+
+Future <List> MaxAPP(String temporada) async {
   String url = 'http://localhost:8080/api/asistentes?temporada=$temporada';
 
   http.Response response = await http.get(Uri.parse(url));
@@ -82,7 +82,7 @@ Future <dynamic> MaxAPP(String temporada) async {
   }
 }
 
-Future <dynamic> MaxRPP(String temporada) async {
+Future <List> MaxRPP(String temporada) async {
   String url = 'http://localhost:8080/api/reboteadores?temporada=$temporada';
 
   http.Response response = await http.get(Uri.parse(url));
@@ -98,7 +98,7 @@ Future <dynamic> MaxRPP(String temporada) async {
   }
 }
 
-Future <dynamic> MaxTPP(String temporada) async {
+Future <List> MaxTPP(String temporada) async {
   String url = 'http://localhost:8080/api/taponadores?temporada=$temporada';
 
   http.Response response = await http.get(Uri.parse(url));
@@ -112,4 +112,4 @@ Future <dynamic> MaxTPP(String temporada) async {
   } else {
     throw Exception('No connecta');
   }
-}*/
+}

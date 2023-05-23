@@ -84,7 +84,7 @@ export async function getMaximosAnotadores(temporada){
         for(let jugador of res){
           if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
-          if(llista.length==30){
+          if(llista.length==15){
             break;
           }
         }
@@ -134,7 +134,7 @@ export async function getMaximosAsistentes(temporada){
         for(let jugador of res){
           if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
-          if(llista.length==30){
+          if(llista.length==15){
             break;
           }
         }
@@ -173,7 +173,7 @@ export async function getMaximosReboteadores(temporada){
       $project: {
         _id: 0,
         Nombre: 1,
-        Asistencias_por_partido: "$estadisticas.Rebotes_por_partido",
+        Rebotes_por_partido: "$estadisticas.Rebotes_por_partido",
         Temporada: "$estadisticas.temporada"
       }
     }
@@ -184,7 +184,7 @@ export async function getMaximosReboteadores(temporada){
         for(let jugador of res){
           if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
-          if(llista.length==30){
+          if(llista.length==15){
             break;
           }
         }
@@ -223,7 +223,7 @@ export async function getMaximosTaponadores(temporada){
       $project: {
         _id: 0,
         Nombre: 1,
-        Asistencias_por_partido: "$estadisticas.Tapones_por_partido",
+        Tapones_por_partido: "$estadisticas.Tapones_por_partido",
         Temporada: "$estadisticas.temporada"
       }
     }
@@ -234,7 +234,7 @@ export async function getMaximosTaponadores(temporada){
         for(let jugador of res){
           if(jugador["Temporada"]===temporada){
           llista.push(jugador);}
-          if(llista.length==30){
+          if(llista.length==15){
             break;
           }
         }
