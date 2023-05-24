@@ -88,7 +88,6 @@ export async function getMaximosAnotadores(temporada){
             break;
           }
         }
-        console.log(llista);
         return llista;
     } else {
         console.log(err);
@@ -138,7 +137,6 @@ export async function getMaximosAsistentes(temporada){
             break;
           }
         }
-        console.log(llista);
         return llista;
     } else {
         console.log(err);
@@ -188,7 +186,6 @@ export async function getMaximosReboteadores(temporada){
             break;
           }
         }
-        console.log(llista);
         return llista;
     } else {
         console.log(err);
@@ -238,7 +235,6 @@ export async function getMaximosTaponadores(temporada){
             break;
           }
         }
-        console.log(llista);
         return llista;
     } else {
         console.log(err);
