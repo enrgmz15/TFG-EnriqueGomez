@@ -32,7 +32,7 @@ export async function getJugadores(){
 
 
 export async function getJugadoresPorEquipo(equipo){
-    let res= await players.find({'Nombre_equipo': equipo},{Nombre:1, Posicion:1, _id:0});
+    let res= await players.find({'Nombre_equipo': equipo},{codigo:1,Nombre:1, Posicion:1, _id:0});
     if (res) {
         let llista = [];
         for (let jugador of res) {

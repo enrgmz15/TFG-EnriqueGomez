@@ -32,7 +32,6 @@ export async function getEstadisticas(){
 }
 
 export async function statsPorJugador(temporada,codigo){
-  //let temp= temporada+'/'+temporada2;
   let res = await stats.find({jugador: parseInt(codigo), temporada: temporada}).select('-jugador -temporada -_id');
   if(res){
     let llista=[]

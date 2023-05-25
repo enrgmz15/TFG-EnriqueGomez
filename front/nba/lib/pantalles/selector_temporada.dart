@@ -12,6 +12,11 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Selecciona una Temporada'),
+        titleTextStyle: TextStyle(
+          fontFamily: "Vintage",
+          fontSize: 20,
+          color: Colors.white
+        ),
         backgroundColor: Colors.red,
       ),
       body: Container(
@@ -43,11 +48,14 @@ class MyHomePage extends StatelessWidget {
             }
           }
           else{
-            buttonText = '$startYear/$endYear';
+            buttonText = '$startYear/$endYear'; 
           }
           return ElevatedButton(
             child: Text(buttonText,
-            style: TextStyle(fontSize: 20),),
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: "Vintage",
+            ),),
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.white),
               backgroundColor: MaterialStateProperty.all(Colors.red),
@@ -56,7 +64,7 @@ class MyHomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainScreen(temporada: buttonText, conferencia:"East"),
+                  builder: (context) => MainScreen(temporada: buttonText),
                 ),
               );
             },

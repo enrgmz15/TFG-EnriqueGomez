@@ -113,3 +113,19 @@ Future <List> MaxTPP(String temporada) async {
     throw Exception('No connecta');
   }
 }
+
+Future <dynamic> StatsporJugador(String codigo, String temporada) async {
+  String url = 'http://localhost:8080/api/stats/$codigo?temporada=$temporada';
+  http.Response response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == HttpStatus.ok) {
+    String body = utf8.decode(response.bodyBytes);
+    final result = jsonDecode(body);
+
+    debugPrint(result.runtimeType.toString());
+    print(result);
+    return result;
+  } else {
+    throw Exception('No connecta');
+  }
+}

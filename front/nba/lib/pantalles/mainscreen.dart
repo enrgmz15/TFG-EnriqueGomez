@@ -4,10 +4,9 @@ import 'package:nba/pantalles/info_equipo.dart';
 import 'package:nba/rutes.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({required this.temporada, required this.conferencia, super.key});
+  const MainScreen({required this.temporada, super.key});
 
   final String temporada;
-  final String conferencia;
 
 
   @override
@@ -15,12 +14,10 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late Future<dynamic> _listaClasificacion;
   int _selectedIndex = 0;
 
   @override
   void initState(){
-    _listaClasificacion= ClasiConferencia(widget.temporada,widget.conferencia);
     super.initState();
   }
 
@@ -42,9 +39,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.red,  
           centerTitle: true,
-          title: Text("Temporada "+widget.temporada, textAlign: TextAlign.center),
+            title: Text("Temporada "+widget.temporada, textAlign: TextAlign.center,
+            style: const TextStyle(fontFamily: "Vintange", color: Colors.white, fontSize: 20)
+          ),
         ),
         body: Center(
           child: _widgetOptions(widget.temporada).elementAt(_selectedIndex),
@@ -131,9 +130,12 @@ class _ClasificacionPageState extends State<ClasificacionPage> with SingleTicker
                           final equipo = clasificacion[index];
                           var pos=index+1;
                           return ListTile(
-                            leading: Text(pos.toString()),
-                            title: Text(equipo['equipo']),
-                            trailing: Text("${equipo['victorias']} - ${equipo['derrotas']}"),
+                            leading: Text(pos.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                            title: Text(equipo['equipo'],
+                              style: TextStyle(fontSize: 16)),
+                            trailing: Text("${equipo['victorias']} - ${equipo['derrotas']}",
+                              style: TextStyle(fontSize: 18)),
                           );
                         },
                       );
@@ -159,9 +161,12 @@ class _ClasificacionPageState extends State<ClasificacionPage> with SingleTicker
                           final equipo = clasificacion[index];
                           var pos=index+1;
                           return ListTile(
-                            leading: Text(pos.toString()),
-                            title: Text(equipo['equipo']),
-                            trailing: Text("${equipo['victorias']} - ${equipo['derrotas']}"),
+                            leading: Text(pos.toString(),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            title: Text(equipo['equipo'],
+                              style: TextStyle(fontSize: 16)),
+                            trailing: Text("${equipo['victorias']} - ${equipo['derrotas']}",
+                              style: TextStyle(fontSize: 18)),
                           );
                         },
                       );
@@ -238,7 +243,8 @@ class _EquiposPageState extends State<EquiposPage> {
                     ),
                   child: ListTile(
                   leading : new Image(image: new AssetImage("../../assets/${nombre}.png")),
-                  title: Text(ciudad+" "+nombre),
+                  title: Text(ciudad+" "+nombre,
+                    style: TextStyle(fontSize: 16),),
                   ),
                 );
               },
@@ -266,7 +272,7 @@ class _LideresPageState extends State<LideresPage> {
 
   Set<String> _lideresOptions = {
     'Puntos por Partido',
-    'Rebotes por partido',
+    'Rebotes por Partido',
     'Asistencias por Partido',
     'Tapones por Partido'
   };
@@ -324,11 +330,12 @@ class _LideresPageState extends State<LideresPage> {
                           itemBuilder: (context, index) {
                             final item = list[index];
                             var pos = index+1;
-                            // Aquí puedes personalizar la visualización de cada elemento en la lista
                             return ListTile(
-                              leading: Text(pos.toString()),
+                              leading: Text(pos.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                               title: Text(item['Nombre']),
-                              trailing: Text(item['Puntos_por_partido'].toString()),
+                              trailing: Text(item['Puntos_por_partido'].toString(),
+                                style: TextStyle(fontSize: 18)),
                             );
                           },
                         );
@@ -358,11 +365,12 @@ class _LideresPageState extends State<LideresPage> {
                           itemBuilder: (context, index) {
                             final item = list[index];
                             var pos = index+1;
-                            // Aquí puedes personalizar la visualización de cada elemento en la lista
                             return ListTile(
-                              leading: Text(pos.toString()),
+                              leading: Text(pos.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                               title: Text(item['Nombre']),
-                              trailing: Text(item['Rebotes_por_partido'].toString()),
+                              trailing: Text(item['Rebotes_por_partido'].toString(),
+                                style: TextStyle(fontSize: 18)),
                             );
                           },
                         );
@@ -392,11 +400,12 @@ class _LideresPageState extends State<LideresPage> {
                           itemBuilder: (context, index) {
                             final item = list[index];
                             var pos = index+1;
-                            // Aquí puedes personalizar la visualización de cada elemento en la lista
                             return ListTile(
-                              leading: Text(pos.toString()),
+                              leading: Text(pos.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                               title: Text(item['Nombre']),
-                              trailing: Text(item['Asistencias_por_partido'].toString()),
+                              trailing: Text(item['Asistencias_por_partido'].toString(),
+                                style: TextStyle(fontSize: 18)),
                             );
                           },
                         );
@@ -426,11 +435,12 @@ class _LideresPageState extends State<LideresPage> {
                           itemBuilder: (context, index) {
                             final item = list[index];
                             var pos = index+1;
-                            // Aquí puedes personalizar la visualización de cada elemento en la lista
                             return ListTile(
-                              leading: Text(pos.toString()),
+                              leading: Text(pos.toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
                               title: Text(item['Nombre']),
-                              trailing: Text(item['Tapones_por_partido'].toString()),
+                              trailing: Text(item['Tapones_por_partido'].toString(),
+                                style: TextStyle(fontSize: 18)),
                             );
                           },
                         );
