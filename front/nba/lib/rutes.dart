@@ -123,7 +123,6 @@ Future <dynamic> StatsporJugador(String codigo, String temporada) async {
     final result = jsonDecode(body);
 
     debugPrint(result.runtimeType.toString());
-    print(result);
     return result;
   } else {
     throw Exception('No connecta');

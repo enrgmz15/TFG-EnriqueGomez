@@ -124,22 +124,26 @@ class _InfoEquipoState extends State<InfoEquipo>{
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Estadísticas de ${jugador['Nombre']}'),
-                          content: Column(
-                            children: [
-                              Text(stats["Puntos_por_partido"]),
-                              Text(stats["Asistencias_por_partido"]),
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                              child: Text('Cerrar'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
+                          content:Container(
+                            width: 300,
+                            padding: EdgeInsets.all(16),
+                             child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(jugador['Nombre'], textAlign: TextAlign.center,
+                                style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                ),),
+                                SizedBox(height: 16),
+                                Text('Puntos por Partido: '+stats[0]['Puntos_por_partido'].toString()),
+                                Text('Rebotes por Partido: '+stats[0]['Rebotes_por_partido'].toString()),
+                                Text('Asistencias por Partido: '+stats[0]["Asistencias_por_partido"].toString()),
+                                Text('Tapones por Partido: '+stats[0]['Tapones_por_partido'].toString()),
+                              ],
+                             )
+                          )
+                          );
                       },
                     );
                   },
