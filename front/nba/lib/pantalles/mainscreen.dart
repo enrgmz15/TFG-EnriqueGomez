@@ -228,7 +228,6 @@ class _EquiposPageState extends State<EquiposPage> {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            // Ejemplo: 
             final List equipos = snapshot.data["llista"];
             return ListView.builder(
               itemCount: equipos.length,

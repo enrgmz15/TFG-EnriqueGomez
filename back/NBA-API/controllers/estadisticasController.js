@@ -19,17 +19,13 @@ export default class estadisticasController{
             status = 200;
         }else{
             let temporada;
-            //let temporada2;
             let codigo;
             if(typeof(req.query.temporada) !== typeof(undefined)  && typeof(req.params.codigo) !== typeof(undefined)) {
             temporada = req.query.temporada;
-            //temporada2 = req.params.temporada2;
             codigo = req.params.codigo;
             }
             else{
-                /*temporada = req.query.temporada;
-                temporada2 = req.query.temporada2;
-                codigo = req.query.codigo;*/
+
             } 
             
 

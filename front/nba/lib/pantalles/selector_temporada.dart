@@ -29,8 +29,8 @@ class MyHomePage extends StatelessWidget {
         child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: 3,
-        mainAxisSpacing: 20, // Ajustar espaciado vertical
-        crossAxisSpacing: 20, // Ajustar espaciado horizontal
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 20,
         padding: EdgeInsets.all(10),
         
         children: List.generate(10, (index) {

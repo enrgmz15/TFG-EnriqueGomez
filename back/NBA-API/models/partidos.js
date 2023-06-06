@@ -91,7 +91,7 @@ export async function QualiPorTemporada(temporada, conferencia){
         },
         {
           $match: {
-             conferencia: conferencia // Filtrar por conferencia
+             conferencia: conferencia
           }
         },      
         {
