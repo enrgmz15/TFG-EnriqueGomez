@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
+let user='root';
+let pass='root';
 
-mongoose.connect('mongodb://root:root@localhost:27017/NBA?authSource=admin', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://${user}:${pass}@localhost:27017/NBA?authSource=admin`, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on("error", function(e) { console.error(e); });
 
 let Jugadores = new mongoose.Schema({
